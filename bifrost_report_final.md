@@ -1,4 +1,4 @@
-# Summary (Approx. 300 words)
+# Summary of bifrost installation and configuration
 
 This report documents my experience installing and configuring OpenStack Bifrost on CentOS Stream 10. Bifrost simplifies bare-metal provisioning by using Ansible playbooks to automate the setup of physical or virtual nodes through OpenStack Ironic, without requiring the full OpenStack environment. My goal was to understand its workflow, configuration process, and dependencies while performing a hands-on installation.
 
