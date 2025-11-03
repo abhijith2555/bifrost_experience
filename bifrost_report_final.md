@@ -18,6 +18,10 @@ Through this project, I gained practical exposure to OpenDev workflows, Ansible 
 **Platform:** CentOS Stream 10  
 **Date:** 22 October 2025  
 **Virtual Machine:** Oracle Virtualbox
+**VM Specifications:**  
+- **CPU Cores:** 2  
+- **RAM:** 6 GB  
+- **Disk Size:** 50 GB
 ---
 
 ## 1. Introduction 
