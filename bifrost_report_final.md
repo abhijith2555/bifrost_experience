@@ -273,22 +273,9 @@ I documented the main issues and how I approached them:
 - **How to inspect logs and rerun playbooks**
   - Rerun with `-v` or `-vvv`. Check `/var/log/messages` or `journalctl` if system services are used.
 
-## 10. Practical recommendations & next steps
-
-- For full testenv success, try one of:
-  - Use Ubuntu 22.04 LTS or CentOS Stream 9 VM (CI-aligned distros).
-  - Install QEMU-related packages from CRB/EPEL on CentOS Stream 10 to satisfy `sgabios-bin` and friends.
-
-- Convert your inventory into a more complete form (include MACs, name, driver, and if testing with IPMI, include power parameters).
-
-- When testing real hardware, ensure IPMI/BMC details and network PXE/TFTP setups are ready.
-
-- Use `ansible-playbook -i ... enroll-dynamic.yaml -v` to iteratively validate tasks; fix inventory fields as needed.
-
-- For Outreachy/Gerrit workflow:
-  - Push your repo changes to a personal GitHub and/or create a Gerrit change by pushing to `refs/for/master` as described earlier.
-
----
+## 10. Conclusion
+Despite minor issues, the installation validated core Bifrost functionality — from environment setup to inventory configuration.  
+Future improvements include resolving repository dependencies and verifying integration with Ironic for end-to-end provisioning.
 
 ## References
 
