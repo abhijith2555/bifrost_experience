@@ -17,11 +17,10 @@ Through this project, I gained practical exposure to OpenDev workflows, Ansible 
 **Author:** Abhijith P C  
 **Platform:** CentOS Stream 10  
 **Date:** 22 October 2025  
-
+**Virtual Machine:** Oracle Virtualbox
 ---
-# Bifrost Installation — Expanded Technical Report
 
-## 1. Introduction (expanded)
+## 1. Introduction 
 
 Bifrost is an OpenStack subproject that exposes a set of Ansible playbooks and helper scripts to enroll, clean, and provision bare-metal machines via Ironic. It is useful for labs, CI, and doing minimal Ironic-based provisioning without a full OpenStack deployment. The practical aim here was to:
 
@@ -30,7 +29,7 @@ Bifrost is an OpenStack subproject that exposes a set of Ansible playbooks and h
 - Run the `bifrost-cli testenv` to exercise the end-to-end workflow,
 - Capture and fix errors found during the process.
 
-## 2. Pre-installation steps (expanded)
+## 2. Pre-installation steps 
 
 I verified and installed core packages using DNF and prepared the repo:
 
@@ -45,8 +44,7 @@ cd ~/bifrost
 - System Python is 3.12 (confirmed).
 - I preferred using Bifrost's provided `venv` under `env/` to avoid global package conflicts.
 
-## 3. Virtual environment activation (expanded)
-
+## 3. Virtual environment activation
 Bifrost provides an `env` directory with a virtual environment. I activated it and confirmed Ansible lives inside it:
 
 ```bash
@@ -63,7 +61,7 @@ ansible --version
 
 Running playbooks with the system Ansible may use different collections or plugins. Activating the venv ensures the versions bundled with Bifrost are used.
 
-## 4. Installing Bifrost CLI & Python packages (expanded)
+## 4. Installing Bifrost CLI & Python packages 
 
 I attempted several installation routes:
 
@@ -104,7 +102,7 @@ echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## 5. Inventory configuration (expanded)
+## 5. Inventory configuration 
 
 Bifrost reads inventory via `BIFROST_INVENTORY_SOURCE`. I created a dummy inventory and iterated on it.
 
@@ -136,7 +134,7 @@ Validate:
 bifrost_inventory --list
 ```
 
-**Important `bifrost_inventory --list` output (trimmed):**
+**Important `bifrost_inventory --list` output :**
 
 ```json
 {
@@ -164,7 +162,7 @@ I initially saw errors: `list indices must be integers or slices, not str` — c
 
 After correcting YAML, `bifrost_inventory` returned valid JSON showing the fake node.
 
-**Example of a richer inventory for Ironic compatibility (suggested):**
+**Example of a richer inventory for Ironic compatibility :**
 
 ```yaml
 all:
@@ -181,7 +179,7 @@ all:
 
 This `hosts`/`children` structure avoids Ansible warnings about unexpected keys.
 
-## 6. Enrollment playbook execution (expanded)
+## 6. Enrollment playbook execution 
 
 I ran enrollment in check mode first:
 
@@ -208,7 +206,7 @@ Inventory lacks the precise Ansible group/hosts layout expected by the playbooks
 
 Convert the simple `nodes:` mapping into an Ansible-compatible inventory (`hosts`, `children`) as shown earlier.
 
-## 7. Deployment and redeployment tests (expanded)
+## 7. Deployment and redeployment tests 
 
 I repeated similar tests with:
 
@@ -219,7 +217,7 @@ ansible-playbook -i ~/bifrost/inventory/dummy_nodes.yaml redeploy-dynamic.yaml -
 
 The playbooks consistently skipped because they found no matching hosts. Key lesson: the deployment pipeline requires node power/boot parameters and more complete inventory entries to perform meaningful tasks.
 
-## 8. Using bifrost-cli testenv (expanded)
+## 8. Using bifrost-cli testenv 
 
 To exercise the full automated workflow, I used the wrapper script:
 
@@ -250,7 +248,7 @@ You can either:
 - Install equivalent qemu/OVMF packages from CRB/EPEL or replace the package name in `playbooks/roles/bifrost-create-vm-nodes/tasks/*`.
 - Use a distro known to be CI-tested (Ubuntu or CentOS Stream 9) for full testenv success.
 
-## 9. Troubleshooting & debugging (expanded)
+## 9. Troubleshooting & debugging 
 
 I documented the main issues and how I approached them:
 
